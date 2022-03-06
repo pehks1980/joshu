@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <a href="/">Начало /</a>
+    Все сообщения
+{% endblock %}
+
+{% block content %}
+<style>
+    .block-content{width: 1200px;}
+</style>
+
+    <div>
+        <h1 style="text-align: center">Все сообщения Чат-бота</h1>
+        {% if user.is_authenticated and user.telegram_ch_admin %}
+        <div style="width: 1200px;">
+            <table style="width: 100%; valign: top">
+                <tbody>
+                <tr style="border-bottom: 2px solid #c2c2c2;">
+                    <th class="head-row">Название</th>
+                    <th class="head-row">Дата отправлений</th>
+                </tr>
+
+                    {% if data_query %}
+                        {% for item in data_query %}
+                            <tr class="mes-row">
+                                <td><a href="{% url 'main_app:message_detail' item.pk_messages %}">{{ item.name }}</a></td>
+                                <td>
+                                    {% if item.all_send %}
+                                        {% for i in item.all_send %}
+                                            {{ i.date_time|date:"D d M Y" }} {{ i.date_time|time:"H:i" }},<br>
+                                        {% endfor %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>Пусто</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <p><a href="{% url 'main_app:message_create' %}">Добавить сообщение</a></p>
+        {% endif %}
+    </div>
+
+{% endblock %}

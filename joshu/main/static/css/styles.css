@@ -1,0 +1,30 @@
+:root {
+  --main-bg-color: #fff;     /*цвет фона хедера и футера*/
+  --main-nav-color: #000;    /*цвет букв*/
+  --main-content-place-back-color: #e2e4e8;
+  --main-content-font-color: #4b4f54;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+.block-content{
+    width: 800px;
+    margin: 0 auto;
+    border: solid 1px #c0c0c0;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    }
+.block-content ul li {list-style: none;}
+.middle-header{background-color: cornflowerblue;}
+
+#id_description, #id_name{width:100%}
+.breadcrumbs{
+    height: 50px;
+    background-color: #2121;
+    padding-left: 20px;
+    padding-top: 12px
+}
+.breadcrumbs a {text-decoration: none;}
+.mes-row{border-bottom: 1px solid #c2c2c2;}

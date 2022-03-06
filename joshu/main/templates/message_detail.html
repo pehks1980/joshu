@@ -1,0 +1,80 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+	<a href="/">Начало /</a>
+	<a href="/main/messages_all/">Все сообщения /</a>
+	{{ current_message.name }}
+{% endblock %}
+
+{% block script %}
+	{% if task_id %}
+   	    <script src="{% static '/js/progress-bar.js' %}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<style>
+    .block-content{width: 1200px;}
+</style>
+
+
+<div>
+    <h1 style="text-align: center">Cообщение Чат-бота детально</h1>
+    {% if user.is_authenticated and user.telegram_ch_admin %}
+    <div class="block-content">
+        <p><b>Короткое название:</b> {{ current_message.name }}</p>
+        <p><b>Содержание сообщения:</b> {{ current_message.description }}</p>
+		<br>
+		<p><a href="{% url 'main_app:message_update' current_message.pk %}">Редактировать сообщение</a></p>
+		<p><a href="{% url 'main_app:message_delete' current_message.pk %}">Удалить сообщение</a> </p>
+    </div>
+
+    <div class="block-content">
+        <b>Пользователей в чат бот:</b> {{ user_count }}
+		<br>
+        {#-------------------------------------#}
+
+              <form id="generate-objects" method="post">
+					{% csrf_token %}
+					<table>
+						{{ form.as_p }}
+					</table>
+					<input type="submit" value="Отослать сообщение">
+				</form>
+
+            {#-------------------------------------#}
+    </div>
+    {% endif %}
+</div>
+
+<div>
+    {% if messages %}
+	<ul class="messages">
+		{% for message in messages %}
+			<li class="{{ message.tags }}">
+				{{ message|safe }}
+			</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+		<p></p>
+	{% endif %}
+</div>
+
+
+<div class="progress-block" id="ProgressBlock"
+	 progress-url="/celery-progress/{{ task_id }}/">
+</div>
+
+{% if task_id %}
+<progress id="progress-bar" value="0" max="100" style="display:block; margin-bottom: 1em;width: 100%">
+
+</progress>
+
+<div id="messages_task">
+    <p>-</p>
+</div>
+{% endif %}
+{% endblock %}

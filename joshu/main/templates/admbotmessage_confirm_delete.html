@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <a href="/">Начало /</a>
+	<a href="/main/messages_all/">Все сообщения /</a>
+    {% if admbotmessage %}
+	    <a href="{% url 'main_app:message_detail' admbotmessage.pk  %}">{{ admbotmessage.name }} /</a>
+    {% endif %}
+    {{ set_title }}
+{% endblock %}
+
+{% block content %}
+<style>
+    .block-content{width: 1200px;}
+</style>
+
+    <div>
+        <h1 style="text-align: center">{{ set_title }}
+            {% if admbotmessage %}
+                "{{ admbotmessage.name }}"
+            {% endif %}
+        </h1>
+        {% if user.is_authenticated and user.telegram_ch_admin %}
+        <div class="block-content">
+        <p>Вы уверены, что хотите удалить сообщение:  <b style="color:red">{{ admbotmessage.name }}</b>?</p>
+        {#-------------------------------------#}
+            <form action="" method="POST">
+			  {% csrf_token %}
+			  <input type="submit" action="" value="Да, удалить" />
+			</form>
+        {#-------------------------------------#}
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    Начало /
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 style="text-align: center">Welcome to Joshu</h1>
+        <div class="block-content">
+            <p>API Documentation:</p>
+            <ul>
+                <li><a href="/swagger/">Swagger</a> </li>
+                <li><a href="/redoc/">Redoc</a> </li>
+            </ul>
+        </div>
+        {% if user.is_authenticated and user.telegram_ch_admin %}
+            <div class="block-content">
+                <p>Сообщения Чат-бота Telegram</p>
+                <ul>
+                    <li><a href="{% url 'main_app:messages_all' %}">Перейти</a> </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

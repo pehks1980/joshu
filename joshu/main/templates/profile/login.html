@@ -1,0 +1,63 @@
+{% extends "base_generic.html" %}
+
+{% load bootstrap4 %}
+ {% load static %}
+
+
+{% block breadcrumbs %}
+     <a href="/">Начало /</a>
+    Вход пользователя
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 text-center" > 
+		<h2>Вход пользователя</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3" >
+      </div>
+
+      <div class="col-6" >
+      <p> 
+        {% if user.is_authenticated %}
+        <p>Вы уже выполнили вход</p>
+        {% else %}
+          {% block js %}
+                <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+                <script src="{% static 'js/login_script.js' %}"></script>
+          {% endblock %}
+
+            <form method="post">
+                <!--script src='https://www.google.com/recaptcha/api.js'></script-->
+                {% csrf_token %}
+                {% bootstrap_form form layout='horizontal' %}
+                <!--div class="form-group g-recaptcha" data-sitekey="6Le57cMUAAAAAFWdkVVBdItoTlfodGhSnl-29mzU"></div-->
+
+                <!--input type="hidden" name="next" value="{{ index }}"-->
+                {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                {% endif %}
+                <p><input type="checkbox" name="checkme" id="agree" /> Я согласен(на) на обработку персональных данных.
+                </p>
+                <input type="submit" id="continue" value="Войти" />
+            </form>
+        {% endif %} 
+      </p>  
+      </div>
+
+    </div>
+    
+</div>
+
+
+    
+
+{% endblock %}
