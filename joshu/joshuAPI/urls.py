@@ -1,5 +1,5 @@
-from django.conf.urls import url
-from django.urls import path, include
+# from django.conf.urls import url
+from django.urls import path, include, re_path as url
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -8,7 +8,6 @@ from .views import CreateJoshuUserAPIView, RefreshTokenJoshuUserAPIView, TaskFol
     TaskFolderCreateView, GenTelegJoshuUserAPIView, ClrTelegChatIdAPIView, TransferTask, SetUserTZAPIView
 
 from .views import TaskListView, TaskCreateView, TaskPutDelView, TaskFolderPutDelView
-
 
 app_name = 'joshuAPI'
 
@@ -24,7 +23,6 @@ urlpatterns = [
     path('task_folder/', TaskFolderCreateView.as_view()),
     path('task_folder/<int:pk>', TaskFolderPutDelView.as_view()),
 
-
     # User
     path('user/auth/', CreateJoshuUserAPIView.as_view(), name='user_auth'),
     # set user tz
@@ -37,6 +35,5 @@ urlpatterns = [
     path('user/clear_chat_id/', ClrTelegChatIdAPIView.as_view(), name='clr_teleg_chat_id'),
     # JWT
     path('token/refresh/', RefreshTokenJoshuUserAPIView.as_view(), name='token_refresh'),
-
 
 ]

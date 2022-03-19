@@ -1,7 +1,10 @@
+import datetime
+
 import telebot_calendar
 from emoji import emojize
 from joshuAPI.models import JoshuUser, Task, TaskFolder
 from telebot import types
+from telegram_bot_calendar import DetailedTelegramCalendar, LSTEP
 
 from joshu import settings
 from .prediction import ChartBot
@@ -90,10 +93,15 @@ class BotHandler:
     def get_calendary(self):
         chat_id = self.chat_id
 
+        #calendar, step = DetailedTelegramCalendar(current_date=datetime.date.today()).build()
+        calendar = telebot_calendar.Calendar()
+
         self.bot.send_message(
             chat_id,
+            #f"Select {LSTEP[step]}",
             text="Пожалуйста, выберите дату: ",
-            reply_markup=telebot_calendar.create_calendar()
+            reply_markup=calendar.create_calendar()
+            #reply_markup=calendar
         )
 
     # функци выводит расширенное меню при нажатии 'показать все'

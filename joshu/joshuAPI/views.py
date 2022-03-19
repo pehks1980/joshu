@@ -1,6 +1,7 @@
 import datetime
 import re
 import jwt
+import pytz
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
@@ -30,7 +31,7 @@ from .serializers import (
 )
 # from .permissions import IsOwnerOrReadOnly
 from joshu.settings import SECRET_KEY, BOT_NAME
-from django.utils.timezone import pytz
+#from django.utils.timezone import pytz
 from joshuAPI.tasks import send_email_delegating_task
 
 

@@ -500,10 +500,11 @@ class BotCbHandler:
         tid = str(self.callback_data).split(sep=':')[1]
         chat_id = self.chat_id
         # set tid as suffix (_1) in name for calendar so it will be used later in set_task_dt_date()
+        calendar = telebot_calendar.Calendar()
         self.bot.send_message(
             chat_id,
             text="Пожалуйста, выберите дату: ",
-            reply_markup=telebot_calendar.create_calendar(name=f'calendar_1.{tid}')
+            reply_markup=calendar.create_calendar(name=f'calendar_1.{tid}')
         )
 
     # Функция 2 ввода времени срока задачки dateTime - получает выбранную в календаре дату и просит ввести время час мин
